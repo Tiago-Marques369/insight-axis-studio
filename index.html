@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LogosData | Engenharia de Dados</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" href="favicon.ico">
   <style>
     :root {
       --bg:        #0e0e14;
@@ -19,13 +19,17 @@
       --border:    rgba(201,168,76,0.18);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; max-width: 100%; }
+
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
 
     body {
       font-family: 'Jost', sans-serif;
       background: var(--bg);
       color: var(--text);
-      overflow-x: hidden;
     }
 
     body::before {
@@ -40,10 +44,12 @@
 
     .container {
       max-width: 1100px;
+      width: 100%;
       margin: auto;
-      padding: 0 28px;
+      padding: 0 20px;
       position: relative;
       z-index: 1;
+      overflow-x: hidden;
     }
 
     header {
@@ -94,9 +100,10 @@
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -60%);
-      width: 600px; height: 400px;
+      width: min(600px, 100vw); height: 400px;
       background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%);
       pointer-events: none;
+      overflow: hidden;
     }
 
     .hero-logo {
@@ -274,9 +281,6 @@
 
     .photo-placeholder svg { width: 44px; height: 44px; opacity: 0.4; }
 
-    /* Add your photo: replace the SVG inside .photo-placeholder with:
-       <img src="sua-foto.jpg" style="width:100%;height:100%;object-fit:cover;"> */
-
     .profile-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 18px;
@@ -396,6 +400,23 @@
     .cert-item.pending { opacity: 0.4; font-style: italic; }
     .cert-item.pending::before { background: var(--gold-dim); }
 
+
+  .cert-link {
+  text-decoration: none;
+  transition: 0.3s ease;
+  border-radius: 4px;
+  padding: 4px 0;
+}
+
+.cert-link:hover {
+  color: var(--gold-soft);
+  transform: translateX(4px);
+}
+
+.cert-link:hover::before {
+  background: var(--gold-soft);
+}
+
     /* NAV */
     .carousel-nav {
       display: flex;
@@ -507,10 +528,110 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ══ MOBILE: perfil ══ */
     @media (max-width: 680px) {
       .profile-layout { grid-template-columns: 1fr; }
       .profile-left { border-right: none; border-bottom: 1px solid var(--border); }
       .profile-right { padding: 24px 20px; }
+    }
+
+    /* ══ MOBILE: geral ══ */
+    @media (max-width: 768px) {
+
+      /* Header empilhado */
+      header {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 14px;
+        padding: 20px 0;
+        width: 100%;
+      }
+
+      /* Esconde a tagline do meio no mobile */
+      header small {
+        display: none;
+      }
+
+      /* Garante que o CTA no header fique centralizado */
+      header .cta {
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 70px 8px 60px;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: clamp(26px, 7.5vw, 38px);
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      /* Sections */
+      .section {
+        padding: 56px 0;
+      }
+
+      .section h2 {
+        font-size: 28px;
+        margin-bottom: 32px;
+      }
+
+      /* Grid força 1 coluna */
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Tech stack */
+      .tech {
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .tech span {
+        padding: 8px 16px;
+        font-size: 12px;
+      }
+
+      /* Botões de contato empilhados e centralizados */
+      .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .contact-buttons .cta,
+      .contact-buttons .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* Carousel ocupa a largura toda */
+      .team-carousel {
+        width: 100%;
+      }
+
+      /* Footer */
+      .footer {
+        padding: 28px 16px;
+      }
+
+      /* CTA do hero centralizado */
+      .hero .cta {
+        display: inline-block;
+        text-align: center;
+      }
     }
   </style>
   <meta name="google-site-verification" content="9Cy3zhEYViDGB8YutpapAfS5WniHvkWt_gmBqbveJXA" />
@@ -522,7 +643,7 @@
   <header>
     <div class="logo">LOGOS <span>DATA</span></div>
     <small style="font-size:10px; color:var(--muted); letter-spacing:2px;">
-      ENGENHARIA DE DADOS
+      Dashboards • Automação • Engenharia de Dados • BI Estratégico
     </small>
     <a href="#contato" class="cta">Diagnóstico gratuito</a>
   </header>
@@ -590,27 +711,76 @@
     </div>
   </section>
 
-  <!-- PROCESSO -->
-<section class="section">
-  <p class="section-label">Processo</p>
-  <h2>Como funciona</h2>
-  <div class="gold-line"></div>
 
-  <div class="grid">
-    <div class="card">
-      <strong>1. Diagnóstico</strong>
-      <p>Mapeamos seus dados, processos e gargalos.</p>
+  <!-- BEFORE AFTER -->
+  <section class="section">
+    <p class="section-label">Transformação de Dashboards</p>
+    <h2>Do caos para clareza</h2>
+    <div class="gold-line"></div>
+
+    <div class="grid">
+
+      <div class="card">
+        <strong>ANTES</strong>
+
+        <div style="margin-top:18px; border-radius:10px; overflow:hidden; border:1px solid var(--border);">
+          <img 
+            src="dashboard-before.jpg" 
+            alt="Dashboard antes"
+            style="
+            width:100%;
+            display:block;
+            opacity:0.55;
+            filter: grayscale(25%) blur(0.2px);
+            "
+          >
+        </div>
+
+        <p style="margin-top:16px;">
+          Horas perdidas em planilhas, retrabalho manual e decisões sem confiança nos números.
+        </p>
+      </div>
+
+      <div class="card">
+        <strong>DEPOIS</strong>
+
+        <div style="margin-top:18px; border-radius:10px; overflow:hidden; border:1px solid rgba(201,168,76,0.35);
+          box-shadow: 0 0 35px rgba(201,168,76,0.12);">
+          <img 
+            src="dashboard-after.jpg" 
+            alt="Dashboard depois"
+            style="width:100%; display:block;"
+          >
+        </div>
+
+          <p style="margin-top:16px;">
+            Dados centralizados, métricas confiáveis e decisões tomadas com clareza em tempo real.
+          </p>
+      </div>
+
     </div>
-    <div class="card">
-      <strong>2. Estruturação</strong>
-      <p>Criamos pipelines e organizamos a base.</p>
+  </section>
+
+  <!-- PROCESSO -->
+  <section class="section">
+    <p class="section-label">Processo</p>
+    <h2>Como funciona</h2>
+    <div class="gold-line"></div>
+    <div class="grid">
+      <div class="card">
+        <strong>1. Diagnóstico</strong>
+        <p>Mapeamos seus dados, processos e gargalos.</p>
+      </div>
+      <div class="card">
+        <strong>2. Estruturação</strong>
+        <p>Criamos pipelines e organizamos a base.</p>
+      </div>
+      <div class="card">
+        <strong>3. Automação & BI</strong>
+        <p>Entregamos dashboards e fluxos automatizados.</p>
+      </div>
     </div>
-    <div class="card">
-      <strong>3. Automação & BI</strong>
-      <p>Entregamos dashboards e fluxos automatizados.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- TECH -->
   <section class="section">
@@ -628,190 +798,184 @@
     </div>
   </section>
 
-  <!-- Results -->
-  <section class="section">
-  <p class="section-label">Resultados</p>
-  <h2>O impacto que geramos</h2>
+<!-- TEAM -->
+<section class="section">
+  <p class="section-label">Quem somos</p>
+  <h2>Time</h2>
   <div class="gold-line"></div>
 
-  <div class="grid">
-    <div class="card">
-      <strong>Fim do Excel manual</strong>
-      <p>Relatórios automatizados e sempre atualizados.</p>
-    </div>
-    <div class="card">
-      <strong>Decisão em tempo real</strong>
-      <p>Você não espera mais dados — você age com eles.</p>
-    </div>
-    <div class="card">
-      <strong>Escala sem caos</strong>
-      <p>Sua operação cresce sem perder controle dos dados.</p>
+  <div class="team-carousel">
+    <div class="team-slides">
+      <div class="team-track" id="teamTrack">
+
+        <!-- SLIDE 1 · Tiago -->
+        <div class="team-slide">
+          <div class="profile-layout">
+
+            <!-- LEFT -->
+            <div class="profile-left">
+              <div class="photo-placeholder">
+                <img
+                  src="tiago.jpg"
+                  style="width:100%;height:100%;object-fit:cover;border-radius:50%;"
+                >
+              </div>
+
+              <div class="profile-name">Tiago Marques<br>Pereira</div>
+              <div class="profile-role">Founder · Engenheiro de Dados</div>
+
+              <div class="exp-label">Experiência</div>
+              <div class="exp-list">
+                <div class="exp-item">
+                  <span class="exp-company">Logos Data</span>
+                  <span class="exp-period">Founder · Engenheiro de Dados · 2026 – atual</span>
+                </div>
+                <div class="exp-item">
+                  <span class="exp-company">Stefanini Brasil</span>
+                  <span class="exp-period">Engenheiro de Dados · 2026 – atual</span>
+                </div>
+                <div class="exp-item">
+                  <span class="exp-company">Musa</span>
+                  <span class="exp-period">Engenheiro de Dados · 2025 – 2026</span>
+                </div>
+                <div class="exp-item">
+                  <span class="exp-company">Getronics</span>
+                  <span class="exp-period">Analista de negócios em TI · 2023 – 2025</span>
+                </div>
+                <div class="exp-item">
+                  <span class="exp-company">ExamRoom.AI</span>
+                  <span class="exp-period">Analista de negócios em TI · 2022 – 2023</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="profile-right">
+
+              <div class="profile-bio">
+                <p>
+                  <strong>Empresas não precisam de mais dados, precisam de clareza. É isso que eu entrego.</strong><br><br>
+
+                  Sou <strong>Engenheiro de dados</strong> com atuação na interseção entre tecnologia e negócio, criando pipelines analíticos e soluções de BI que dão clareza para decisões estratégicas e crescimento sustentável.<br><br>
+
+                  Tenho experiência prática com <strong>SQL, AWS e orquestração de dados</strong>, desenvolvendo processos eficientes de ETL/ELT, modelagem dimensional e automações com <strong>n8n</strong> — sempre focado em reduzir retrabalho e aumentar produtividade.<br><br>
+
+                  Meu background em Business Analysis me permite ir além do técnico: entendo o problema do negócio e construo soluções de dados que geram impacto real.
+                </p>
+              </div>
+
+              <div class="spec-block">
+                <div class="block-title">Especializações</div>
+                <div class="spec-tags">
+                  <span class="spec-tag">Engenharia de Dados</span>
+                  <span class="spec-tag">ETL / ELT Pipelines</span>
+                  <span class="spec-tag">BI & Dashboards</span>
+                  <span class="spec-tag">Automação N8N</span>
+                  <span class="spec-tag">Modelagem Dimensional</span>
+                  <span class="spec-tag">Data Quality</span>
+                  <span class="spec-tag">Power BI / DAX</span>
+                  <span class="spec-tag">Inteligência Artificial</span>
+                </div>
+              </div>
+
+              <div class="certs-block">
+
+                <div class="cert-group">
+                  <div class="cert-group-title">AWS</div>
+
+                  <div class="cert-list">
+
+                    <a class="cert-item cert-link"
+                      href="https://www.credly.com/badges/996a3a9f-cd40-47a9-aaaa-91f90db0b5da/linked_in_profile"
+                      target="_blank" rel="noopener">
+                      AWS Certified Cloud Practitioner
+                    </a>
+
+                    <a class="cert-item cert-link"
+                      href="https://www.credly.com/badges/93957e54-85b9-4250-824e-5fcaeba1fc9f/linked_in_profile"
+                      target="_blank" rel="noopener">
+                      AWS Certified Solutions Architect – Associate
+                    </a>
+
+                    <a class="cert-item cert-link"
+                      href="https://www.credly.com/badges/864224e6-18c7-453e-bd2e-f971b793edaa/linked_in_profile"
+                      target="_blank" rel="noopener">
+                      AWS Certified Data Engineer – Associate
+                    </a>
+
+                    <a class="cert-item cert-link"
+                      href="https://www.credly.com/badges/4afe9d9a-798c-4a20-8993-d8c4f750aec0/linked_in_profile"
+                      target="_blank" rel="noopener">
+                      AWS Certified Machine Learning Engineer – Associate
+                    </a>
+
+                    <a class="cert-item cert-link"
+                      href="https://www.credly.com/badges/0729fccb-aaa8-4ef9-9e64-84700c89f623/linked_in_profile"
+                      target="_blank" rel="noopener">
+                      AWS Certified AI Practitioner
+                    </a>
+
+                  </div>
+                </div>
+
+                <div class="cert-group">
+                  <div class="cert-group-title">Databricks</div>
+
+                  <div class="cert-list">
+
+                    <a class="cert-item cert-link"
+                      href="https://credentials.databricks.com/5561147e-bb5c-4a2a-be9b-2a349d35766d"
+                      target="_blank" rel="noopener">
+                      Databricks Certified Data Engineer Associate
+                    </a>
+
+                  </div>
+                </div>
+
+                <div class="cert-group">
+                  <div class="cert-group-title">Azure</div>
+
+                  <div class="cert-list">
+                    <div class="cert-item pending">
+                      Em breve · Microsoft Certified: Power BI Analista de Dados Associate
+                    </div>
+
+                    <div class="cert-item pending">
+                      Em breve · Microsoft Certified: Engenheiro de Dados Fabric Associate
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cert-group">
+                  <div class="cert-group-title">Outras</div>
+
+                  <div class="cert-list">
+
+                    <a class="cert-item cert-link"
+                      href="https://www.credly.com/badges/895304d8-b8f1-4050-a68a-4edef94a5603/linked_in_profile"
+                      target="_blank" rel="noopener">
+                      PCEP – Certified Entry-Level Python Programmer
+                    </a>
+
+                    <a class="cert-item cert-link"
+                      href="https://bcr.bstqb.org.br/cert?field_certificado_nome_value=Tiago+Marques+Pereira&field_certificado_numero_value=+21-CTFL-10825-BR"
+                      target="_blank" rel="noopener">
+                      Certified Tester Foundation Level (CTFL)
+                    </a>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
-
-  <!-- TEAM -->
-  <section class="section">
-    <p class="section-label">Quem somos</p>
-    <h2>Time</h2>
-    <div class="gold-line"></div>
-
-    <div class="team-carousel">
-      <div class="team-slides">
-        <div class="team-track" id="teamTrack">
-
-          <!-- SLIDE 1 · Tiago -->
-          <div class="team-slide">
-            <div class="profile-layout">
-
-              <!-- LEFT -->
-              <div class="profile-left">
-                <div class="photo-placeholder">
-                    <img 
-                          src="tiago.jpg" 
-                          style="
-                            width:100%;
-                            height:100%;
-                            object-fit:cover;
-                            border-radius:50%;
-                          "
-                        >
-                    <circle cx="22" cy="16" r="9" stroke="#c9a84c" stroke-width="1.5"/>
-                    <path d="M4 40c0-9.94 8.06-18 18-18s18 8.06 18 18" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-                  </svg>
-                </div>
-
-                <div class="profile-name">Tiago Marques<br>Pereira</div>
-                <div class="profile-role">Founder · Engenheiro de Dados</div>
-
-                <div class="exp-label">Experiência</div>
-                <div class="exp-list">
-                  <div class="exp-item">
-                    <span class="exp-company">Logos Data</span>
-                    <span class="exp-period">Founder · Engenheiro de Dados · 2026 – atual</span>
-                  </div>
-                  <div class="exp-item">
-                    <span class="exp-company">Stefanini Brasil</span>
-                    <span class="exp-period">Engenheiro de Dados · 2026 – atual</span>
-                  </div>
-                  <div class="exp-item">
-                    <span class="exp-company">Musa</span>
-                    <span class="exp-period">Engenheiro de Dados · 2025 – 2026</span>
-                  </div>
-                  <div class="exp-item">
-                    <span class="exp-company">Getronics</span>
-                    <span class="exp-period">Analista de negócios em TI · 2023 – 2025</span>
-                  </div>
-                  <div class="exp-item">
-                    <span class="exp-company">ExamRoom.AI</span>
-                    <span class="exp-period">Analista de negócios em TI  · 2022 - 2023</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- RIGHT -->
-              <div class="profile-right">
-
-                <div class="profile-bio">
-                  <p>
-                   <strong>Empresas não precisam de mais dados, precisam de clareza. É isso que eu entrego.</strong><br><br>
-
-                        Sou <strong>Engenheiro de dados</strong> com atuação na interseção entre tecnologia e negócio, criando pipelines analíticos e soluções de BI que dão clareza para decisões estratégicas e crescimento sustentável.<br><br>
-
-                        Tenho experiência prática com <strong>SQL, AWS e orquestração de dados</strong>, desenvolvendo processos eficientes de ETL/ELT, modelagem dimensional e automações com <strong>n8n</strong> — sempre focado em reduzir retrabalho e aumentar produtividade.<br><br>
-
-                        Meu background em Business Analysis me permite ir além do técnico: entendo o problema do negócio e construo soluções de dados que geram impacto real.<br><br>
-
-                  </p>
-                </div>
-
-                <div class="spec-block">
-                  <div class="block-title">Especializações</div>
-                  <div class="spec-tags">
-                    <span class="spec-tag">Engenharia de Dados</span>
-                    <span class="spec-tag">ETL / ELT Pipelines</span>
-                    <span class="spec-tag">BI & Dashboards</span>
-                    <span class="spec-tag">Automação N8N</span>
-                    <span class="spec-tag">Modelagem Dimensional</span>
-                    <span class="spec-tag">Data Quality</span>
-                    <span class="spec-tag">Power BI / DAX</span>
-                    <span class="spec-tag">Inteligência Artificial</span>
-                  </div>
-                </div>
-
-                <div class="certs-block">
-                  <div class="block-title">Certificações</div>
-
-                  <div class="cert-group">
-                    <div class="cert-group-title">AWS</div>
-                    <div class="cert-list">
-                      <div class="cert-item">AWS Certified Cloud Practitioner</div>
-                      <div class="cert-item">AWS Certified Solutions Architect – Associate</div>
-                      <div class="cert-item">AWS Certified Data Engineer – Associate</div>
-                      <div class="cert-item">AWS Certified Machine Learning Engineer – Associate</div>
-                    </div>
-                  </div>
-
-                  <div class="cert-group">
-                    <div class="cert-group-title">Databricks</div>
-                    <div class="cert-list">
-                      <div class="cert-item">Databricks Certified Data Engineer Associate</div>
-                    </div>
-                  </div>
-
-                  <div class="cert-group">
-                    <div class="cert-group-title">Azure</div>
-                    <div class="cert-list">
-                      <div class="cert-item pending">Em breve · Microsoft Certified:  Power BI Analista de Dados Associate</div>
-                      <div class="cert-item pending">Em breve · Microsoft Certified: Engenheiro de Dados Fabric AssociateEngenheiro de Dados Fabric Associate</div>
-                    </div>
-                  </div>
-                  <div class="cert-group">
-                    <div class="cert-group-title">Outras</div>
-                    <div class="cert-list">
-                      <div class="cert-item">PCEP – Certified Entry-Level Python Programmer</div>
-                      <div class="cert-item">Certified Tester Foundation Level (CTFL)</div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div><!-- /slide 1 -->
-
-          <!-- SLIDE 2 · em breve -->
-          <div class="team-slide">
-            <div style="display:flex;align-items:center;justify-content:center;min-height:480px;flex-direction:column;gap:18px;padding:60px 40px;text-align:center;">
-              <div style="width:80px;height:80px;border-radius:50%;border:1px dashed var(--gold-dim);display:flex;align-items:center;justify-content:center;">
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <line x1="14" y1="4" x2="14" y2="24" stroke="#8a6e2f" stroke-width="2" stroke-linecap="round"/>
-                  <line x1="4" y1="14" x2="24" y2="14" stroke="#8a6e2f" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--muted);">Em breve</div>
-              <p style="font-size:13px;color:var(--muted);opacity:0.6;max-width:320px;line-height:1.75;font-weight:300;">
-                Nosso time está crescendo.<br>Em breve mais um especialista se junta à LogosData.
-              </p>
-            </div>
-          </div><!-- /slide 2 -->
-
-        </div><!-- /team-track -->
-      </div><!-- /team-slides -->
-
-      <div class="carousel-nav">
-        <div class="nav-arrow" onclick="moveCarousel(-1)" title="Anterior">
-          <svg viewBox="0 0 18 18" fill="none"><polyline points="11,4 6,9 11,14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="nav-dots" id="navDots">
-          <div class="nav-dot active" onclick="goToSlide(0)"></div>
-          <div class="nav-dot" onclick="goToSlide(1)"></div>
-        </div>
-        <div class="nav-arrow" onclick="moveCarousel(1)" title="Próximo">
-          <svg viewBox="0 0 18 18" fill="none"><polyline points="7,4 12,9 7,14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- CONTACT -->
   <section class="section" id="contato">
@@ -842,7 +1006,7 @@
 
 <script>
   let current = 0;
-  const total = 2;
+  const total = 1;
   const track = document.getElementById('teamTrack');
   const dots = document.querySelectorAll('.nav-dot');
 
