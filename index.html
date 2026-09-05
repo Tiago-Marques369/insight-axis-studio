@@ -42,6 +42,21 @@
       gtag('js', new Date());
 
       gtag('config', 'AW-18430684930');
+
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18430684930/SHVACLzk2e4cEILet9RE',
+          'value': 1.0,
+          'currency': 'BRL',
+          'event_callback': callback
+        });
+        return false;
+      }
     </script>
 </head>
 <body>
@@ -118,6 +133,21 @@
       document.querySelector('.legal').innerHTML=t.legal;const sw=document.getElementById('langSwitch');sw.innerHTML=t.switchHtml;sw.setAttribute('aria-label',t.switchLabel);const wa='https://wa.me/5511983195720?text='+encodeURIComponent(t.whatsapp);document.querySelectorAll('a[href*="wa.me/5511983195720"]').forEach(a=>a.href=wa);const mail='mailto:tiago.marques@logosdata.com.br?subject='+encodeURIComponent(t.emailSubject);document.querySelectorAll('a[href^="mailto:tiago.marques"]').forEach(a=>a.href=mail);document.querySelector('.whatsapp-float').setAttribute('aria-label',lang==='pt'?'Falar com a Logos Data no WhatsApp':'Contact Logos Data on WhatsApp');localStorage.setItem('logosDataLanguage',lang);
     }
     let currentLanguage=localStorage.getItem('logosDataLanguage')||'pt';applyLanguage(currentLanguage);document.getElementById('langSwitch').addEventListener('click',()=>{currentLanguage=currentLanguage==='pt'?'en':'pt';applyLanguage(currentLanguage)});
+
+    if (!window.__logosWhatsAppConversionBound) {
+      window.__logosWhatsAppConversionBound = true;
+      document.addEventListener('click', function (event) {
+        const link = event.target.closest('a[href]');
+        if (!link) return;
+
+        const href = link.getAttribute('href') || '';
+        if (!href.includes('wa.me') && !href.includes('whatsapp.com')) return;
+
+        if (typeof window.gtag_report_conversion === 'function') {
+          window.gtag_report_conversion();
+        }
+      });
+    }
   </script>
 </body>
 </html>
